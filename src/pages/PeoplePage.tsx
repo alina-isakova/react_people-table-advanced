@@ -45,18 +45,21 @@ export const PeoplePage = () => {
     setSearchWith({ query: event.target.value || null });
   }
 
-  function resetCenturies() {
-    setSearchWith({ centuries: null });
-  }
-
   const filtredPeople = people.filter(person => {
     const century = Math.ceil(+person.born / 100).toString();
 
-    return (
-      person.name.toLowerCase().includes(query.toLowerCase()) &&
-      (sex === '' || sex === person.sex) &&
-      (centuries.length === 0 || centuries.includes(century))
-    );
+    const matchesQuery = [
+      person.name,
+      person.motherName,
+      person.fatherName,
+    ].some(f => f && f.toLowerCase().includes(query));
+
+    const matchesSex = sex === '' || sex === person.sex;
+
+    const matchesCentury =
+      centuries.length === 0 || centuries.includes(century);
+
+    return matchesCentury && matchesSex && matchesQuery;
   });
 
   return (
@@ -66,13 +69,12 @@ export const PeoplePage = () => {
       <div className="block">
         <div className="columns is-desktop is-flex-direction-row-reverse">
           <div className="column is-7-tablet is-narrow-desktop">
-            {!loading && (
+            {!loading && !error && (
               <PeopleFilters
                 query={query}
                 sex={sex}
                 centuries={centuries}
                 handleQueryChange={handleQueryChange}
-                resetCenturies={resetCenturies}
               />
             )}
           </div>

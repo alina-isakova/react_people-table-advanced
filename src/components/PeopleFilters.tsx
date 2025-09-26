@@ -8,7 +8,6 @@ type Props = {
   sex: string;
   centuries: string[];
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  resetCenturies: () => void;
 };
 
 export const PeopleFilters: React.FC<Props> = ({

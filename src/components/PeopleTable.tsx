@@ -23,15 +23,26 @@ export const PeopleTable: React.FC<Props> = ({ people }) => {
       return people;
     }
 
-    const sorted = [...people].sort((a, b) => {
+    const sorted = [...people].sort((a: Person, b: Person) => {
       const A = a[sortField];
       const B = b[sortField];
 
+      let result = 0;
+
       if (typeof A === 'string' && typeof B === 'string') {
-        return A.localeCompare(B);
+        return A.toLowerCase().localeCompare(B.toLowerCase());
+      } else {
+        const aNum = A === null || A === undefined ? Infinity : Number(A);
+        const bNum = B === null || B === undefined ? Infinity : Number(B);
+
+        result = aNum - bNum;
       }
 
-      return Number(A) - Number(B);
+      if (result === 0) {
+        result = a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+      }
+
+      return result;
     });
 
     return order === 'desc' ? sorted.reverse() : sorted;

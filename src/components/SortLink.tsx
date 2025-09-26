@@ -18,8 +18,8 @@ export const SortLink: React.FC<Props> = ({ field }) => {
 
   if (!isActive) {
     newParams.set('sort', field);
-    newParams.set('order', 'asc');
-  } else if (isActive && currentOrder === 'asc') {
+    newParams.delete('order');
+  } else if (isActive && !currentOrder) {
     newParams.set('order', 'desc');
   } else if (isActive && currentOrder === 'desc') {
     newParams.delete('sort');
@@ -31,7 +31,7 @@ export const SortLink: React.FC<Props> = ({ field }) => {
       return 'fas fa-sort';
     }
 
-    if (active && order === 'asc') {
+    if (active && !order) {
       return 'fas fa-sort-up';
     }
 
