@@ -13,13 +13,6 @@ export const App = () => {
     <div data-cy="app">
       <p>{pathname}</p>
       <p>{search}</p>
-      {/* <p className="title is-5 has-text-info">
-        {pathname}
-      </p>
-
-      <p className="title is-6">
-        {search && search.replaceAll('&', ' &')}
-      </p> */}
       <Navbar />
 
       <div className="section">
