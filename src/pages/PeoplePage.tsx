@@ -13,7 +13,7 @@ export const PeoplePage = () => {
   const [people, setPeople] = useState<Person[]>([]);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query') || '';
+  const query = (searchParams.get('query') || '').toLowerCase();
   const sex = searchParams.get('sex') || '';
   const centuries = searchParams.getAll('centuries') || [];
 
@@ -45,7 +45,7 @@ export const PeoplePage = () => {
     setSearchWith({ query: event.target.value || null });
   }
 
-  const filtredPeople = people.filter(person => {
+  const filteredPeople = people.filter(person => {
     const century = Math.ceil(+person.born / 100).toString();
 
     const matchesQuery = [
@@ -93,11 +93,11 @@ export const PeoplePage = () => {
                 </p>
               )}
 
-              {!loading && filtredPeople.length === 0 && people.length > 0 && (
+              {!loading && filteredPeople.length === 0 && people.length > 0 && (
                 <p>There are no people matching the current search criteria</p>
               )}
 
-              {!loading && <PeopleTable people={filtredPeople} />}
+              {!loading && !error && <PeopleTable people={filteredPeople} />}
             </div>
           </div>
         </div>

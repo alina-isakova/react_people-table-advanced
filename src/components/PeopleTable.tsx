@@ -30,7 +30,7 @@ export const PeopleTable: React.FC<Props> = ({ people }) => {
       let result = 0;
 
       if (typeof A === 'string' && typeof B === 'string') {
-        return A.toLowerCase().localeCompare(B.toLowerCase());
+        result = A.toLowerCase().localeCompare(B.toLowerCase());
       } else {
         const aNum = A === null || A === undefined ? Infinity : Number(A);
         const bNum = B === null || B === undefined ? Infinity : Number(B);
